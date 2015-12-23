@@ -1,0 +1,136 @@
+﻿<?xml version="1.0"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=169433
+  -->
+<configuration>
+  <!--The connectionStrings needed to be added to based on the SQL DB database-->
+  <connectionStrings>
+    <add name="SQLi1" connectionString="Insert SQLi1 Connection String here"  providerName="System.Data.SqlClient"/>
+    <add name="SQLi2" connectionString="Insert SQLi2 Connection String here"   providerName="System.Data.SqlClient"/>
+    <add name="InfoGuest" connectionString="Insert InfoGuest Connection String here"   providerName="System.Data.SqlClient"/>
+  </connectionStrings>
+  <!--The credentials here needed to be added-->
+  <appSettings>
+    <add key="ValidationSettings:UnobtrusiveValidationMode" value="None" />
+    <add key="ChartImageHandler" value="storage=file;timeout=20;dir=c:\TempImageFiles\;" />
+    <add  key="clubEmail" value="Insert Club Email here"/>
+    <add  key="clubEmailPass" value="Insert Club Email Password here"/>
+    <add key="adminEmail"  value="Insert Club Admin Email here"/>
+    <add key="reCaptchaKey" value="Insert reCaptchaKey here"/>
+  </appSettings>
+
+  <system.webServer>
+    <rewrite>
+      <rules>
+        <rule name="RewriteASPX">
+          <match url="(.*)" />
+          <conditions logicalGrouping="MatchAll">
+            <add input="{REQUEST_FILENAME}" matchType="IsFile" negate="true" />
+            <add input="{REQUEST_FILENAME}" matchType="IsDirectory" negate="true" />
+          </conditions>
+          <action type="Rewrite" url="{R:1}.aspx" />
+        </rule>
+      </rules>
+    </rewrite>
+    <validation validateIntegratedModeConfiguration="false"  />
+    <handlers>
+      <remove name="ChartImageHandler" />
+      <add name="ChartImageHandler" preCondition="integratedMode" verb="GET,HEAD,POST"
+        path="ChartImg.axd" type="System.Web.UI.DataVisualization.Charting.ChartHttpHandler, System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+    </handlers>
+  </system.webServer>
+  <!--<membership>
+      <providers>
+        <clear/>
+        <add name="AspNetSqlMembershipProvider" type="System.Web.Security.SqlMembershipProvider, System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" connectionStringName="LocalSqlServer" enablePasswordRetrieval="false" enablePasswordReset="true" requiresQuestionAndAnswer="true" applicationName="/" requiresUniqueEmail="false" passwordFormat="Hashed" maxInvalidPasswordAttempts="5" minRequiredPasswordLength="7" minRequiredNonalphanumericCharacters="1" passwordAttemptWindow="10" passwordStrengthRegularExpression=""/>
+      </providers>
+    </membership>
+    <profile>
+      <providers>
+        <clear/>
+        <add name="AspNetSqlProfileProvider" connectionStringName="LocalSqlServer" applicationName="/" type="System.Web.Profile.SqlProfileProvider, System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>
+      </providers>
+    </profile>
+    <roleManager>
+      <providers>
+        <clear/>
+        <add name="AspNetSqlRoleProvider" connectionStringName="LocalSqlServer" applicationName="/" type="System.Web.Security.SqlRoleProvider, System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>
+        <add name="AspNetWindowsTokenRoleProvider" applicationName="/" type="System.Web.Security.WindowsTokenRoleProvider, System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"/>
+      </providers>
+    </roleManager>-->
+  <system.web>
+    <customErrors mode="RemoteOnly" defaultRedirect="~/Error.aspx">
+      <error statusCode="404" redirect="~/Error.aspx" />
+    </customErrors>
+    <httpHandlers>
+      <add path="Char`tImg.axd" verb="GET,HEAD,POST" type="System.Web.UI.DataVisualization.Charting.ChartHttpHandler, System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35"
+        validate="false" />
+    </httpHandlers>
+    <pages>
+      <controls>
+        <add tagPrefix="asp" namespace="System.Web.UI.DataVisualization.Charting"
+          assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
+      </controls>
+    </pages>
+    <compilation debug="true" targetFramework="4.5">
+      <assemblies>
+        <add assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"/>
+      </assemblies>
+    </compilation>
+
+    <httpRuntime  targetFramework="4.5" requestValidationMode="2.0"/>
+
+    <authentication mode="Forms">
+      <forms name=".ASPXFORMSDEMO" loginUrl="Logon.aspx"
+      protection="All" path="/" timeout="30"  defaultUrl="Home.aspx"/>
+    </authentication>
+    <authorization>
+      <allow users = "*" />
+    </authorization>
+
+  </system.web>
+  <location path = "Vulnerable1.aspx">
+    <system.web>
+      <authorization>
+        <deny users ="?" />
+        <allow users = "*" />
+      </authorization>
+    </system.web>
+  </location>
+  <location path = "Vulnerable2.aspx">
+    <system.web>
+      <authorization>
+        <deny users ="?" />
+        <allow users = "*" />
+      </authorization>
+    </system.web>
+  </location>
+  <location path = "Vulnerable3_2.aspx">
+    <system.web>
+      <authorization>
+        <deny users ="?" />
+        <allow users = "*" />
+      </authorization>
+    </system.web>
+  </location>
+  <location path = "Vulnerable4.aspx">
+    <system.web>
+      <authorization>
+        <deny users ="?" />
+        <allow users = "*" />
+      </authorization>
+    </system.web>
+  </location>
+  <location path = "Vulnerable5.aspx">
+    <system.web>
+      <authorization>
+        <deny users ="?" />
+        <allow users = "*" />
+      </authorization>
+    </system.web>
+  </location>
+
+
+
+</configuration>
